@@ -1,0 +1,54 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+model Coordinator {
+  id           String   @id @default(cuid())
+  name         String
+  email        String   @unique
+  passwordHash String
+  department   String
+  role         String   @default("coordinator") // coordinator | admin
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+  emailRecords EmailRecord[]
+  resetTokens  PasswordReset[]
+}
+
+model PasswordReset {
+  id        String   @id @default(cuid())
+  token     String   @unique
+  expiresAt DateTime
+  used      Boolean  @default(false)
+  coordinatorId String
+  coordinator   Coordinator @relation(fields: [coordinatorId], references: [id])
+  createdAt DateTime @default(now())
+}
+
+model EmailRecord {
+  id            String   @id @default(cuid())
+  coordinatorId String?
+  coordinator   Coordinator? @relation(fields: [coordinatorId], references: [id])
+  coordinatorName   String
+  coordinatorEmail  String
+  coordinatorDepartment String
+  recipientEmail String
+  subject       String
+  message       String
+  fileName      String
+  filePath      String
+  fileSize      Int
+  fileType      String
+  status        String   @default("pending") // pending | sent | failed
+  errorMessage   String?
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
+}

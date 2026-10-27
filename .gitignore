@@ -1,0 +1,51 @@
+# dependencies
+node_modules
+/.pnp
+.pnp.*
+.yarn/*
+
+# next.js
+/.next/
+/out/
+
+# production
+/build
+
+# misc
+.DS_Store
+*.pem
+
+# debug
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+.pnpm-debug.log*
+
+# env files (إضافة .env الخاص بك بعد نسخ .env.example)
+.env
+.env.local
+.env.*.local
+
+# vercel
+.vercel
+
+# typescript
+*.tsbuildinfo
+next-env.d.ts
+
+# قاعدة البيانات والملفات المرفوعة
+/db/*.db
+/db/*.db-journal
+/uploads/*
+!/uploads/.gitkeep
+
+# سجلات
+*.log
+dev.log
+server.log
+
+# IDE
+.idea/
+.vscode/
+*.swp
+*.swo
