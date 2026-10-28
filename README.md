@@ -6,165 +6,154 @@
 ![Next.js](https://img.shields.io/badge/Next.js-16-black)
 ![TypeScript](https://img.shields.io/badge/TypeScript-5-blue)
 ![License](https://img.shields.io/badge/license-MIT-green)
+![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen)
+
+> 📖 وثائق كاملة بالعربية — استخدم زر الترجمة في المتصفح إذا لزم الأمر.
 
 ## المميزات
 
-### للمستخدمين (المنسقين):
-- ✅ تسجيل حساب بالاسم + البريد + كلمة المرور + اختيار الدائرة من قائمة منسدلة
+### 🧑‍💼 للمنسقين:
+- ✅ تسجيل حساب (الاسم + البريد + كلمة المرور + اختيار الدائرة)
 - ✅ تسجيل الدخول والخروج
 - ✅ استعادة كلمة المرور عبر البريد
-- ✅ رفع ملف (السحب والإفلات أو الاختيار اليدوي)
-- ✅ إرسال الملف إلى أي بريد إلكتروني مع رسالة مرفقة
-- ✅ سجل شخصي بالإرسالات مع إمكانية تنزيل الملفات
-- ✅ كل منسق يرى إرسالاته فقط (خصوصية كاملة)
+- ✅ رفع ملف (السحب والإفلات أو الاختيار)
+- ✅ إرسال الملف إلى أي بريد مع رسالة مرفقة
+- ✅ سجل شخصي بالإرسالات مع تنزيل الملفات
+- ✅ كل منسق يرى إرسالاته فقط
 
-### للمدير:
+### 🎛️ للمدير:
 - ✅ لوحة تحكم على `/dashboard`
-- ✅ إحصائيات شاملة (عدد المنسقين، الإرسالات، نسبة النجاح، آخر النشاطات)
+- ✅ إحصائيات شاملة
 - ✅ إدارة المنسقين (عرض + حذف)
-- ✅ عرض كل الإرسالات مع فلترة بالدائرة والحالة
-- ✅ تعديل إعدادات البريد (Resend API Key + Sender) من الواجهة دون إعادة تشغيل
-- ✅ إعدادات عامة (اسم البوابة، حجم الملف، بريد المدير)
+- ✅ عرض كل الإرسالات مع فلترة
+- ✅ تعديل إعدادات البريد من الواجهة (دون إعادة تشغيل)
+- ✅ إعدادات عامة
 
-### إعدادات الإرسال:
-- ✅ **Resend API** (الموصى به — 3000 رسالة مجانية شهرياً، بدون App Password)
-- ✅ **SMTP** احتياطي (Gmail/Outlook/Mailgun)
-- ✅ **الوضع المحلي** احتياطي (حفظ محتوى البريد كملف نصي)
-
-## التقنيات المستخدمة
-
-- **Next.js 16** مع App Router
-- **TypeScript** بشكل كامل
-- **Tailwind CSS 4** مع shadcn/ui
-- **Prisma ORM** مع SQLite (يمكن التغيير إلى PostgreSQL/MySQL)
-- **Nodemailer + Resend** لإرسال البريد
-- **bcryptjs** لتشفير كلمات المرور
-- **jsonwebtoken** للجلسات
+### 📧 إعدادات الإرسال:
+- 🥇 **Resend API** (موصى به — 3000 رسالة مجانية شهرياً، بدون App Password)
+- 🥈 **SMTP** احتياطي (Gmail/Outlook/Mailgun)
+- 🥉 **الوضع المحلي** احتياطي (حفظ كملف نصي)
 
 ---
 
-## التثبيت والتشغيل
+## 🚀 التثبيت السريع
 
 ### المتطلبات
 - Node.js 18.18+ أو 20+
 - npm / yarn / bun
 
-### الخطوة 1: تثبيت الحزم
+### الخطوات
 
 ```bash
+# 1. انسخ المستودع
+git clone https://github.com/USERNAME/coordinator-portal.git
+cd coordinator-portal
+
+# 2. ثبّت الحزم
 npm install
-# أو
-yarn install
-# أو
-bun install
-```
 
-### الخطوة 2: إعداد ملف `.env`
-
-```bash
+# 3. انسخ ملف الإعدادات
 cp .env.example .env
-```
 
-ثم املأ القيم في `.env`:
+# 4. عدّل قيم .env (مهم: JWT_SECRET, ADMIN_EMAIL, RESEND_API_KEY)
+nano .env
 
-```bash
-# قاعدة البيانات (افتراضي: SQLite، لا يحتاج خادماً)
-DATABASE_URL=file:/home/z/my-project/db/custom.db
-
-# سر الجلسة (غيّره في الإنتاج إلى قيمة عشوائية طويلة)
-JWT_SECRET=change-this-to-a-long-random-secret-in-production-32chars
-
-# عنوان التطبيق
-NEXTAUTH_URL=http://localhost:3000
-
-# بريد المدير (له صلاحية لوحة التحكم)
-ADMIN_EMAIL=admin@your-domain.com
-
-# إعدادات Resend (الموصى به)
-RESEND_API_KEY=re_xxxxxxxxxxxxxxxxxxxxxxxx
-RESEND_FROM="بوابة المنسقين <onboarding@resend.dev>"
-```
-
-### الخطوة 3: إعداد قاعدة البيانات
-
-```bash
+# 5. أنشئ قاعدة البيانات
 npm run db:push
-```
 
-### الخطوة 4: تشغيل التطبيق
-
-```bash
-# وضع التطوير
+# 6. شغّل خادم التطوير
 npm run dev
-
-# أو وضع الإنتاج
-npm run build && npm run start
 ```
 
 افتح: `http://localhost:3000`
 
 ---
 
-## الحصول على Resend API Key
+## 🌐 النشر على Vercel (الأسهل)
+
+### الطريقة 1: زر واحد
+[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new)
+
+### ⚠️ مهم: Vercel لا يدعم SQLite!
+Vercel يستخدم serverless functions بنظام ملفات للقراءة فقط، لذلك **SQLite لا يعمل**. يجب استخدام قاعدة بيانات سحابية (PostgreSQL).
+
+#### إعداد قاعدة بيانات Neon PostgreSQL (مجانية):
+1. اذهب إلى: **https://neon.tech**
+2. سجّل بحساب GitHub (مجاني تماماً، بدون بطاقة ائتمان)
+3. أنشئ project جديد
+4. انسخ connection string (يبدأ بـ `postgresql://`)
+5. استخدمه كقيمة لـ `DATABASE_URL` في Vercel
+
+### الطريقة 2: يدوي
+1. ارفع المشروع إلى GitHub
+2. اذهب إلى: https://vercel.com/new
+3. اختر المستودع
+4. أضف متغيرات البيئة:
+   - `DATABASE_URL` (Neon PostgreSQL — انظر فوق)
+   - `JWT_SECRET` (32+ حرف)
+   - `NEXTAUTH_URL` (رابط Vercel)
+   - `ADMIN_EMAIL`
+   - `RESEND_API_KEY`
+   - `RESEND_FROM`
+5. اضغط Deploy
+
+---
+
+## 🐳 النشر بـ Docker
+
+### سريع
+```bash
+# 1. انسخ .env.example إلى .env وعدّله
+cp .env.example .env
+
+# 2. شغّل
+docker-compose up -d
+
+# 3. افتح http://localhost:3000
+```
+
+### يدوي
+```bash
+docker build -t coordinator-portal .
+docker run -p 3000:3000 --env-file .env coordinator-portal
+```
+
+---
+
+## 📧 الحصول على Resend API Key
 
 1. اذهب إلى: https://resend.com
-2. سجّل حساباً (مجاني، بدون بطاقة ائتمان)
+2. سجّل حساب (مجاني، بدون بطاقة ائتمان)
 3. من لوحة التحكم → API Keys → Create API Key
 4. انسخ المفتاح (يبدأ بـ `re_...`)
 5. الصقه في `.env` أو في لوحة التحكم → "إعدادات البريد"
 
-> **الخطة المجانية**: 3000 رسالة شهرياً، الإرسال فقط لبريدك المسجل. للإرسال لأي بريد آخر، أضف نطاقك في Resend.
+> **الخطة المجانية**: 3000 رسالة شهرياً، الإرسال لبريدك المسجل. للإرسال لأي بريد، أضف نطاقك في Resend.
 
 ---
 
-## كيفية الاستخدام
+## 🎯 كيفية الاستخدام
 
 ### للمنسق:
-1. سجّل حساباً ببريدك (إذا كان بريدك = ADMIN_EMAIL، ستحصل على صلاحية المدير تلقائياً)
+1. سجّل حساباً ببريدك (إذا كان = `ADMIN_EMAIL`، ستحصل على صلاحية المدير تلقائياً)
 2. سجّل الدخول
 3. املأ النموذج: بريد المستلم، الموضوع، النص، ارفع ملفاً
 4. اضغط "إرسال الملف"
-5. سيظهر السجل في لوحة السجل على اليسار
 
 ### للمدير:
-1. سجّل الدخول ببريدك (المحدد في ADMIN_EMAIL)
-2. سيظهر زر "لوحة التحكم" في الأعلى
-3. اذهب إلى لوحة التحكم:
-   - **الإحصائيات**: نظرة عامة على النظام
-   - **إعدادات البريد**: تغيير API Key و RESEND_FROM
-   - **إدارة المنسقين**: عرض وحذف المنسقين
-   - **كل الإرسالات**: عرض جميع الإرسالات مع فلترة
-   - **إعدادات عامة**: اسم البوابة، حجم الملف، بريد المدير
+1. سجّل الدخول ببريدك (`ADMIN_EMAIL`)
+2. سيظهر زر **"لوحة التحكم"** في الأعلى
+3. استكشف الأقسام الـ 5
 
 ---
 
-## الدوائر المتاحة (21 دائرة)
+## 📋 قائمة الدوائر (21 دائرة)
 
-1. دائرة المعلوماتية
-2. دائرة التنظيم العمراني
-3. دائرة الأبنية
-4. دائرة الطرق
-5. دائرة الدراسات
-6. دائرة الطبوغرافيا
-7. دائرة الرقابة الداخلية
-8. دائرة التخطيط والإحصاء
-9. دائرة الآليات
-10. دائرة النفايات الصلبة
-11. مكتب الجاهزية
-12. دائرة مكتب المدير
-13. المخبر
-14. دائرة الديوان العام
-15. دائرة الموارد البشرية
-16. القسم الفني
-17. قسم التنمية الإدارية
-18. الدائرة القانونية
-19. الدائرة المالية
-20. دائرة التدريب والتأهيل
-21. دائرة التنظيم المؤسساتي
+دائرة المعلوماتية · التنظيم العمراني · الأبنية · الطرق · الدراسات · الطبوغرافيا · الرقابة الداخلية · التخطيط والإحصاء · الآليات · النفايات الصلبة · مكتب الجاهزية · مكتب المدير · المخبر · الديوان العام · الموارد البشرية · القسم الفني · التنمية الإدارية · القانونية · المالية · التدريب والتأهيل · التنظيم المؤسساتي
 
 ---
 
-## بنية المشروع
+## 📂 بنية المشروع
 
 ```
 .
@@ -172,7 +161,7 @@ npm run build && npm run start
 │   └── schema.prisma             # Coordinator + EmailRecord + PasswordReset
 ├── public/
 ├── scripts/
-│   └── generate-env.mjs          # توليد حساب Ethereal اختباري
+│   └── generate-env.mjs          # حساب Ethereal اختباري
 ├── src/
 │   ├── app/
 │   │   ├── api/
@@ -181,11 +170,7 @@ npm run build && npm run start
 │   │   │   ├── upload/            # رفع + إرسال بريد
 │   │   │   ├── history/           # جلب سجل المستخدم
 │   │   │   └── download/          # تنزيل ملف
-│   │   ├── auth/
-│   │   │   ├── login/             # صفحة تسجيل الدخول
-│   │   │   ├── signup/            # صفحة التسجيل
-│   │   │   ├── forgot-password/   # طلب إعادة تعيين
-│   │   │   └── reset-password/    # إعادة تعيين كلمة المرور
+│   │   ├── auth/                  # login, signup, forgot/reset-password pages
 │   │   ├── dashboard/             # لوحة التحكم (للمدير)
 │   │   ├── layout.tsx             # RTL + خط Cairo + AuthProvider
 │   │   └── page.tsx               # الصفحة الرئيسية
@@ -204,85 +189,156 @@ npm run build && npm run start
 │       ├── env-settings.ts        # قراءة/كتابة .env
 │       ├── db.ts                  # Prisma client
 │       └── utils.ts
+├── .github/
+│   ├── workflows/ci.yml           # GitHub Actions
+│   └── ISSUE_TEMPLATE/            # قوالب Issues
 ├── .env.example
 ├── .gitignore
+├── Dockerfile
+├── docker-compose.yml
+├── vercel.json
 ├── package.json
 ├── README.md
-├── tsconfig.json
-├── next.config.ts
-├── tailwind.config.ts
-└── postcss.config.mjs
+├── CONTRIBUTING.md
+├── SECURITY.md
+├── CHANGELOG.md
+├── LICENSE
+└── tsconfig.json
 ```
 
 ---
 
-## الأمان
+## 🔐 الأمان
 
-- ✅ كلمات المرور مشفّرة بـ bcryptjs (salt rounds: 10)
-- ✅ الجلسات بتوقيع JWT (صالحة 7 أيام)
+- ✅ كلمات المرور مشفّرة بـ **bcryptjs**
+- ✅ الجلسات بتوقيع **JWT** (7 أيام)
+- ✅ HTTP-only cookies
 - ✅ كل الـ API محمية بالجلسة
 - ✅ كل منسق يرى إرسالاته فقط
-- ✅ لوحة التحكم للمدير فقط (يتحقق من دور المستخدم)
-- ✅ التحقق من صحة الحقول في الخادم والعميل
+- ✅ لوحة التحكم للمدير فقط
+- ✅ التحقق من الحقول في الخادم
 - ✅ التحقق من حجم ونوع الملف
-- ⚠️ في الإنتاج: استخدم HTTPS، غيّر JWT_SECRET، احذف .env من Git
+
+راجع [SECURITY.md](./SECURITY.md) للتفاصيل.
 
 ---
 
-## النشر
+## 🛠️ التطوير
 
-### على Vercel
-1. ارفع المشروع إلى GitHub
-2. اربطه بـ Vercel
-3. أضف متغيرات البيئة في إعدادات Vercel
-4. عدّل `prisma/schema.prisma` لاستخدام PostgreSQL
-
-### على VPS مع PM2
+### الأوامر المتاحة
 ```bash
-npm install -g pm2
-pm2 start npm --name "coordinator-portal" -- start
-pm2 save && pm2 startup
+npm run dev          # خادم التطوير
+npm run build        # بناء للإنتاج
+npm run start        # خادم الإنتاج
+npm run lint         # فحص ESLint
+npm run db:push      # إنشاء/تحديث الجداول
+npm run db:generate  # توليد Prisma Client
+npm run db:migrate   # إنشاء migration
+npm run db:reset     # إعادة تعيين قاعدة البيانات
 ```
 
-### مع Nginx (Reverse Proxy)
-```nginx
-server {
-    listen 80;
-    server_name portal.your-domain.com;
-    location / {
-        proxy_pass http://127.0.0.1:3000;
-        proxy_set_header Host $host;
-        proxy_set_header X-Real-IP $remote_addr;
-        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
-    }
-    client_max_body_size 30M;
-}
-```
+### المساهمة
+راجع [CONTRIBUTING.md](./CONTRIBUTING.md) للتفاصيل.
 
 ---
 
-## استكشاف الأخطاء
+## 📦 النشر على GitHub
 
-### "يجب تسجيل الدخول أولاً" لكني سجّلت
-- تحقق من وجود `JWT_SECRET` في `.env`
+### الخطوة 1: أنشئ مستودع فارغ على GitHub
+- اذهب إلى: https://github.com/new
+- اسم المستودع: `coordinator-portal`
+- لا تفعّل أي خيار (README, .gitignore, license)
+
+### الخطوة 2: ارفع المشروع محلياً
+```bash
+# شغّل السكربت الجاهز
+bash scripts/push-to-github.sh <your-github-username> coordinator-portal
+
+# أو يدوياً:
+git init
+git add -A
+git commit -m "feat: إطلاق بوابة المنسقين v1.1.0"
+git branch -M main
+git remote add origin https://github.com/<username>/coordinator-portal.git
+git push -u origin main
+```
+
+### الخطوة 3: أضف متغيرات البيئة في Vercel
+- اذهب إلى إعدادات المشروع في Vercel → Environment Variables
+- أضف المتغيرات المطلوبة من `.env.example`
+
+---
+
+## 📚 التقنيات
+
+| الفئة | التقنية |
+|------|---------|
+| Framework | Next.js 16 (App Router) |
+| Language | TypeScript 5 |
+| Styling | Tailwind CSS 4 |
+| UI | shadcn/ui |
+| Database | Prisma ORM + SQLite |
+| Auth | bcryptjs + jsonwebtoken |
+| Email | Nodemailer + Resend |
+| Icons | Lucide |
+| Fonts | Cairo (Arabic) |
+
+---
+
+## ❓ استكشاف الأخطاء
+
+<details>
+<summary>📝 "يجب تسجيل الدخول أولاً" لكني سجّلت</summary>
+
+- تحقق من `JWT_SECRET` في `.env`
 - امسح cookies المتصفح وأعد المحاولة
 - أعد تشغيل الخادم بعد تعديل `.env`
+</details>
 
-### "جدول قاعدة البيانات غير موجود"
+<details>
+<summary>📝 "جدول قاعدة البيانات غير موجود"</summary>
+
 ```bash
 npm run db:push
 ```
+</details>
 
-### البريد لا يصل
+<details>
+<summary>📝 البريد لا يصل</summary>
+
 - تحقق من `RESEND_API_KEY` و `RESEND_FROM` في `.env`
-- في الخطة المجانية، يمكنك الإرسال فقط إلى بريدك المسجل في Resend
-- راجع السجلات: `tail -f dev.log` أو سجل PM2
+- في الخطة المجانية: يمكنك الإرسال فقط لبريدك المسجل في Resend
+- راجع السجلات: `tail -f dev.log`
+</details>
 
-### نسيت كلمة المرور
-- اذهب إلى `/auth/forgot-password`
-- أدخل بريدك، ستصلك رسالة مع رابط إعادة التعيين
+<details>
+<summary>📝 نسيت كلمة المرور</summary>
+
+اذهب إلى `/auth/forgot-password` → أدخل بريدك → ستصلك رسالة مع رابط.
+</details>
 
 ---
 
-## الترخيص
-MIT License — حر للاستخدام والتعديل.
+## 📄 الترخيص
+
+MIT License — راجع [LICENSE](./LICENSE)
+
+---
+
+## 🙏 شكر خاص
+
+- [Next.js](https://nextjs.org)
+- [shadcn/ui](https://ui.shadcn.com)
+- [Prisma](https://prisma.io)
+- [Resend](https://resend.com)
+- [Tailwind CSS](https://tailwindcss.com)
+
+---
+
+<div align="center">
+
+**صنع بـ ❤️ لدائرة المعلوماتية**
+
+[الموقع الرئيسي](http://localhost:3000) · [التوثيق](./README.md) · [المساهمة](./CONTRIBUTING.md) · [الأمان](./SECURITY.md)
+
+</div>

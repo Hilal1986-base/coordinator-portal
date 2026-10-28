@@ -1,0 +1,40 @@
+name: CI - Lint and Build
+
+on:
+  push:
+    branches: [main, master]
+  pull_request:
+    branches: [main, master]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Generate Prisma Client
+        run: npx prisma generate
+
+      - name: Lint
+        run: npm run lint
+
+      - name: Build
+        run: npm run build
+        env:
+          DATABASE_URL: file:./db/test.db
+          JWT_SECRET: test-secret-for-ci-only
+          NEXTAUTH_URL: http://localhost:3000
+          ADMIN_EMAIL: admin@test.com
+          RESEND_API_KEY: re_test_key_for_ci
+          RESEND_FROM: "Portal <test@resend.dev>"
+          PORTAL_NAME: "بوابة المنسقين في دائرة المعلوماتية"
+          MAX_FILE_SIZE_MB: 25

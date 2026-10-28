@@ -5,8 +5,13 @@ generator client {
   provider = "prisma-client-js"
 }
 
+// في الإنتاج على Vercel: استخدم PostgreSQL (Neon/Supabase/Vercel Postgres)
+// في التطوير المحلي: يمكن استخدام SQLite أو PostgreSQL
+// غيّر الـ provider حسب الحاجة:
+//   - "sqlite" للتطوير المحلي
+//   - "postgresql" للإنتاج على Vercel
 datasource db {
-  provider = "sqlite"
+  provider = "postgresql"
   url      = env("DATABASE_URL")
 }
 
@@ -29,14 +34,14 @@ model PasswordReset {
   expiresAt DateTime
   used      Boolean  @default(false)
   coordinatorId String
-  coordinator   Coordinator @relation(fields: [coordinatorId], references: [id])
+  coordinator   Coordinator @relation(fields: [coordinatorId], references: [id], onDelete: Cascade)
   createdAt DateTime @default(now())
 }
 
 model EmailRecord {
   id            String   @id @default(cuid())
   coordinatorId String?
-  coordinator   Coordinator? @relation(fields: [coordinatorId], references: [id])
+  coordinator   Coordinator? @relation(fields: [coordinatorId], references: [id], onDelete: SetNull)
   coordinatorName   String
   coordinatorEmail  String
   coordinatorDepartment String

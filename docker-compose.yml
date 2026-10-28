@@ -1,0 +1,45 @@
+# docker-compose.yml — بوابة المنسقين
+# نسخة 1.0
+#
+# للتشغيل:
+#   1. انسخ .env.example إلى .env وعدّل القيم
+#   2. docker-compose up -d
+#   3. افتح http://localhost:3000
+#
+# لإيقاف:
+#   docker-compose down
+
+services:
+  portal:
+    build: .
+    container_name: coordinator-portal
+    ports:
+      - "3000:3000"
+    environment:
+      - NODE_ENV=production
+      - DATABASE_URL=file:/app/db/custom.db
+      - JWT_SECRET=${JWT_SECRET:-change-this-secret-in-production}
+      - NEXTAUTH_URL=${NEXTAUTH_URL:-http://localhost:3000}
+      - ADMIN_EMAIL=${ADMIN_EMAIL:-admin@example.com}
+      - RESEND_API_KEY=${RESEND_API_KEY:-}
+      - RESEND_FROM=${RESEND_FROM:-"بوابة المنسقين <onboarding@resend.dev>"}
+      - PORTAL_NAME=${PORTAL_NAME:-بوابة المنسقين في دائرة المعلوماتية}
+      - MAX_FILE_SIZE_MB=${MAX_FILE_SIZE_MB:-25}
+    volumes:
+      # حفظ قاعدة البيانات بشكل دائم
+      - portal-db:/app/db
+      # حفظ الملفات المرفوعة
+      - portal-uploads:/app/uploads
+      # تحميل .env تلقائياً
+      - ./.env:/app/.env:ro
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "wget", "--no-verbose", "--tries=1", "--spider", "http://localhost:3000/"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 10s
+
+volumes:
+  portal-db:
+  portal-uploads:

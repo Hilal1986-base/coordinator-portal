@@ -1,0 +1,49 @@
+# تجاهل ملفات node_modules في Docker
+node_modules
+npm-debug.log
+
+# تجاهل ملفات Next.js
+.next
+out
+
+# تجاهل ملفات البيئة
+.env
+.env.local
+.env.*.local
+
+# تجاهل ملفات قاعدة البيانات
+db/*.db
+db/*.db-journal
+db/*.sqlite
+db/*.sqlite3
+
+# تجاهل الملفات المرفوعة
+uploads/*
+!uploads/.gitkeep
+
+# تجاهل السجلات
+*.log
+
+# تجاهل Git
+.git
+.gitignore
+.gitattributes
+
+# تجاهل IDE
+.idea
+.vscode
+*.swp
+
+# تجاهل OS
+.DS_Store
+Thumbs.db
+
+# تجاهل ملفات الاختبار
+tests
+*.test.js
+*.spec.js
+
+# ملفات Docker
+Dockerfile
+.dockerignore
+docker-compose.yml
