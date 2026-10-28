@@ -1,0 +1,51 @@
+# render.yaml — إعداد Render للمشروع
+# مستندات: https://render.com/docs/blueprint-spec
+#
+# كيفية الاستخدام:
+#   1. ارفع هذا الملف إلى مستودع GitHub
+#   2. في Render Dashboard → New → Blueprint
+#   3. اربط المستودع
+#   4. سيقوم Render بإنشاء كل الخدمات تلقائياً
+
+services:
+  # ====== قاعدة بيانات PostgreSQL ======
+  - type: pserv # PostgreSQL خدمة
+    name: coordinator-portal-db
+    env: docker
+    region: frankfurt
+    plan: free
+    ipAllowList: [] # السماح بالاتصال من أي مكان
+
+  # ====== تطبيق الويب ======
+  - type: web
+    name: coordinator-portal
+    env: node
+    region: frankfurt
+    plan: free
+    branch: main
+    healthCheckPath: /
+    buildCommand: npm install && npx prisma generate && npm run build
+    startCommand: npm run start
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: DATABASE_URL
+        fromDatabase:
+          name: coordinator-portal-db
+          property: connectionString
+      - key: JWT_SECRET
+        sync: false # سيُطلب يدوياً
+      - key: NEXTAUTH_URL
+        sync: false
+      - key: ADMIN_EMAIL
+        sync: false
+      - key: RESEND_API_KEY
+        sync: false
+      - key: RESEND_FROM
+        value: "بوابة المنسقين <onboarding@resend.dev>"
+      - key: PORTAL_NAME
+        value: "بوابة المنسقين في دائرة المعلوماتية"
+      - key: MAX_FILE_SIZE_MB
+        value: "25"
+    # تشغيل prisma db push عند البناء
+    preDeployCommand: npx prisma db push --accept-data-loss
